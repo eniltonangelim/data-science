@@ -29,4 +29,17 @@ Quando observa-se uma correlação ou relacionamento no conjunto de dados, consi
 
 Exemplo: Inferir a expectativa de vida de uma população utilizando os dados relacionados a poluição do Ar na região.
 
+## Prediction and Machine Learning
 
+A idéia da predição é usar amostras da população, inferências, e criar um conjunto de dados de treinamento. Dividimos os dados em um conjunto de treino e validação, respectivamente 70% e 30%. A estimativa da taxa de erro do algoritmo é realizado somente quando todas as partes do treino concluirem, então usaremos os dados da validação para fazer a estimativa.
+
+No geral, é a coleção de dados que aperfeiçoa a precisão mais do o algoritmo de predição em si.
+
+Predição é sobre vantagens e desvantagens:
+
++ Interpretabilidade vs Precisão
++ Velocidade vs Precisão
++ Simplicidade vs Precisão
++ Escalabilidade vs Precisão
+
+Termos: *The unreasonable effectiveness of data*
