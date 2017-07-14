@@ -9,6 +9,11 @@ Ordem de dificuldade
 + Causal
 + Mechanistic
 
+Varáveis
+
++ Qualitativas: País, sexo e tratamento.
++ Quantitativos: peso, altur e pressão sanguínea.
+
 ## Descriptive
 
 O método *descriptive* procura sintetizar uma medição em um único conjunto de dados sem se preocupar com a interpretação. A interpretação e o uso das métricas são deixados para o congresso e o público; portanto, não faz parte desse método analítico.
@@ -42,4 +47,16 @@ Predição é sobre vantagens e desvantagens:
 + Simplicidade vs Precisão
 + Escalabilidade vs Precisão
 
+### Binary out
+
+https://en.wikipedia.org/wiki/Template:SensSpecPPVNPV
+
 Termos: *The unreasonable effectiveness of data*
+
+## Causality
+
+É o padrão que analisa dados, combinando um modelo específico de experimentos como o estudo aleatório com técninas de inferência estatística. Faça testes com gráficos para garantir que cada sujeito esteja distríbuido em seu respectivo grupo, incluindo valores ignorados.
+
+Análise de dados casuais procura identificar a média entre às variáveis com mais ruídos.
+
+Um comum erro é realizar uma pesquisa que busca por uma correlação ou associação entre medições em um estudo não aleatório, então interpretando-os que a correlçaão é um relacionamento de causalidade.
