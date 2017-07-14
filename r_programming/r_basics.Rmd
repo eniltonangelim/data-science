@@ -1,0 +1,71 @@
+---
+title: "R - Basics"
+author: "Enilton Angelim"
+date: "14 de julho de 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Input
+
+Variáveis
+
+```{r}
+x <- 'Hello world!'
+print(x)
+```
+
+O operador : é usado para criar uma sequencia de inteiros
+
+```{r}
+1:200
+```
+
+## Data types - R objects and Attributes
+
+Classes:
+
+ * character
+ * numeric (real numbers)
+ * integer
+ * complex
+ * logical (True/False)
+
+O objeto mais básico é um vetor
+
+ * Um vetor pode somente conter objetos da mesma classe
+ * Mas: A lista pode ter objetos de diferentes classes;
+
+```{r}
+vector()
+```
+
+### Números
+
+Números são tratados como objetos do tipo *numeric*, se deseja um *inteiro*, é necessário especificar o sufixo *L*.
+
+ * Inf: Objeto que representa o infinito;
+ * NaN: representa um valor que não existe ou não pode ser definido (Not a number)
+
+
+```{r}
+22
+22L
+1 / Inf
+0 / 0
+```
+
+### Atributos
+
+Os atributos de um objeto pode ser acessado usando a função *attributes()*.
+
+## Including Plots
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
