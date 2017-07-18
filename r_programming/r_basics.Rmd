@@ -397,6 +397,8 @@ datasub20<-subset(quiz,!is.na(Ozone)&quiz$Month==5,select=Ozone)
 apply(datasub20,2,max) #media de ozonio no mes 5
 ```
 
+
+
 ## Including Plots
 
 ```{r pressure, echo=FALSE}
