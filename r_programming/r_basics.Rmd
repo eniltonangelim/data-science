@@ -390,11 +390,11 @@ nrow(quiz)
 quiz[c(1,2),]
 quiz[c(nrow(quiz)-1,nrow(quiz)),]
 datasub18<-subset(quiz,quiz$Ozone>31 & quiz$Temp>90,select=Solar.R)
-apply(datasub18,2,mean) #Solar media
+apply(datasub18,2,mean) # Solar media
 datasub19<-subset(quiz,quiz$Month==6,select=Temp)
 apply(datasub19,2,mean) # media de temp no mes 6
 datasub20<-subset(quiz,!is.na(Ozone)&quiz$Month==5,select=Ozone)
-apply(datasub20,2,max) #media de ozonio no mes 5
+apply(datasub20,2,max) # media de ozonio no mes 5
 ```
 
 
