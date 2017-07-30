@@ -398,6 +398,27 @@ apply(datasub20,2,max) # media de ozonio no mes 5
 ```
 
 
+## Function
+
+```{r}
+above <- function(x, y=10 ) { x[x > y] }
+above(1:50, 28 )
+```
+
+```{r}
+columnmean <- function(y, removeNA = TRUE) {
+  nc <- ncol(y)
+  means <- numeric(nc)
+  for(i in 1:nc){
+    means[i] <- mean(y[,1], na.rm = removeNA) 
+  }
+  means
+}
+columnmean(airquality)
+columnmean(airquality, FALSE)
+```
+
+
 
 ## Including Plots
 
