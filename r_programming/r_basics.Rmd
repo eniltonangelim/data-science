@@ -418,7 +418,43 @@ columnmean(airquality)
 columnmean(airquality, FALSE)
 ```
 
+## Generating Random Numbers
 
+Funções 
+
+```{r}
+dnorm(x, mean = 0, sd = 1, log = FALSE)
+pnorm(q, mean = 0, sd = 1, lower.tail =  TRUE, log.p = FALSE)
+qnorm(p, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
+rnorm(n, mean = 0, sd = 1)
+```
+
+Definir uma semente para números aleatórios, permitindo que a análise seja reproduzida
+
+```{r} 
+
+set.seed(1)
+rnorm(5) #1
+rnorm(5) #2
+set.seed(1)
+rnorm(5) # igual ao #1
+
+```
+
+A distribuição de Poisson (é uma distribuição de probabilidade de variável aleatória discreta que expressa a probabilidade de uma série de eventos ocorrer num certo período de tempo se estes eventos ocorrem independentemente de quando ocorreu o último evento.)
+
+```{r} 
+rpois(10, 1)
+rpois(10, 2)
+rpois(10, 20)
+
+## Cumulative distribution
+
+ppois(2, 2) ##Pr(x <= 2)
+ppois(4, 2) ##Pr(x <= 4)
+ppois(6, 2) ##Pr(x <= 6)
+
+```
 
 ## Including Plots
 
