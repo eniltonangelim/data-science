@@ -1,0 +1,669 @@
+---
+title: "R - Basics"
+author: "Enilton Angelim"
+date: "14 de julho de 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Input
+
+Variáveis
+
+```{r}
+x <- 'Hello world!'
+print(x)
+```
+
+O operador : é usado para criar uma sequencia de inteiros
+
+```{r}
+1:200
+```
+
+## Data types - R objects and Attributes
+
+Classes:
+
+ * character
+ * numeric (real numbers)
+ * integer
+ * complex
+ * logical (True/False)
+
+O objeto mais básico é um vetor
+
+ * Um vetor pode somente conter objetos da mesma classe
+ * Mas: A lista pode ter objetos de diferentes classes;
+
+```{r}
+vector()
+```
+
+### Números
+
+Números são tratados como objetos do tipo *numeric*, se deseja um *inteiro*, é necessário especificar o sufixo *L*.
+
+ * Inf: Objeto que representa o infinito;
+ * NaN: representa um valor que não existe ou não pode ser definido (Not a number)
+
+
+```{r}
+22
+22L
+1 / Inf
+0 / 0
+```
+
+### Atributos
+
+Os atributos de um objeto pode ser acessado usando a função *attributes()*.
+
+### Vetores
+
+A função *c*(oncatena) pode ser usada para criar vetores de objetos.
+
+```{r exemplo vectores}
+a <- c(0.5, 0.6)
+b <- c(T, F)
+c <- c('casa', 'branca')
+d <- 1:50
+e <- vector('numeric', length = 10)
+f <- c(1+0i, 2+4i)
+g <- c(1.7, "a") # character
+h <- c(TRUE, 2) # numeric
+
+
+a
+b
+c
+d
+e
+f
+g
+h
+```
+
+### Coerção explícita
+
+```{r coercion integer}
+
+x <- 0:6 # Sequencial de inteiros
+
+class(x)  #Tipo do objeto ou classe do objeto
+
+as.numeric(x) # numerico 
+as.logical(x) # boolean
+as.character(x) # character
+
+
+```
+
+
+```{r coercion character}
+
+x <- c("a", "b", "c")
+
+as.numeric(x)
+as.logical(x)
+as.complex(x)
+
+
+
+```
+
+### Matrizes
+
+```{r}
+m <- matrix(nrow=2, ncol=3)
+n <- matrix(1:6, nrow=2, ncol=3)
+
+m
+n
+```
+
+Matriz a partir de um vetor
+
+```{r}
+m <- 1:10
+dim(m) <- c(2,5)
+m
+```
+
+Matrizes podem ser criadas por *column-binding* e *row-binding*
+
+```{r}
+x <- 1:3
+y <- 10:12
+
+cbind(x,y) #y-axis
+
+rbind(x,y) #x-axis
+```
+
+Listas
+
+Um tipo especial de vetor que pode conter elementos de diferentes classes de objetos
+
+```{r}
+x <- list(1, "a", TRUE, 1 + 4i)
+x <- vector('list', length = 5)
+x
+```
+
+## Factor
+
+> Vetor de inteiros, onde cada inteiro tem uma marcação/etiqueta/label.
+
+São usados para representar de forma categórica dados ordenados ou não ordenados e são importantes para modelagem estatística.
+
+Funções de modelagem: 
+
++ lm()
++ glm() 
+
+```{r}
+# Sem label
+x <- factor(c("yes", "yes", "no", "yes", "no"))
+x
+
+# tabela
+print("Tabela")
+table(x)
+
+# representation of facotr
+print("Factor object")
+unclass(x)
+
+# Levels
+x <- factor(c("yes", "yes", "no", "yes", "no"), levels = c("yes", "no"))
+x
+
+```
+
+## Missing values
+
+Valores *missing* são indicados por funções *NA* ou *NAN* para X indefinido nas operações matemáticas
+
+* is.na() é usado para testar se objetos são NA;
+* is.nan() é usado para testar NaN (not a number);
+
+```{r}
+## Create a vector logical with NAs in it
+x <- c(1, 2, NA, 10, 3)
+## Retorna um vetor indicando quais elementos são *NA*
+is.na(x)
+is.nan(x)
+x <- c(1, 2, NaN, NA, 10, 3)
+is.na(x)
+is.nan(x)
+``` 
+
+## Data Frames
+
+São usado para armazenar dados tabulados em R, é um tipo especial de lista onde cada elemento tem o mesmo tamanho.
+
+```{r}
+x <- data.frame(foo= 1:4, bar = c(T, T, F, F))
+x
+nrow(x)
+ncol(x)
+```
+
+## Names
+
+R Objetos podem ter um nome, útil para escrever um código légivel.
+
+```{r}
+x <- 1:3
+names(x)
+names(x) <- c("New York", "Seattle", "Los Angeles")
+x
+```
+
+Listas também podem ter nomes
+
+```{r}
+x <- list("Los Angeles" = 1, Bostom = 2, London = 3)
+x
+```
+
+As linhas e colunas da matriz também podem ter nomes
+
+```{r}
+m <- matrix(1:4, nrow = 2, ncol = 2)
+dimnames(m) <- list(c("a", "b"), c("c","d"))
+m
+
+colnames(m) <- c("h", "f")
+rownames(m) <- c("x", "z")
+m
+```
+
+## Data in and out of R
+
+Principais funções para leitura
+
+* Dados tabulados: read.table, read.csv;
+* Ler as linhas de um aruivo de texto: *readLines*;
+* Leitura de arquivos de código em R: *source* (inverso de dump);
+* Leitura de arquivos de código em R: *dget* (inverso de dput);
+* Carrega apartir da área de trabalho: *load*;
+* Leitura de objetos em binário: *unserialize*;
+
+Principais funções para escrita
+
+* Escrita de dados tabulados para arquivos de texto (ex. CSV) ou conexões: *write.table*;
+* Escrita de dados caracteres linha-a-linha: *writeLines*;
+* Representação textual da pilha de objetos: *dump*;
+* Representação textual do objeto: *dput* ;
+* Salva um conjunto de objetos em formato binário: *save*;
+* Converter um objeto R em um formato binário: *serialize*;
+
+### Função read.table
+
+É uma das funções mais usadas para leitura de dados
+
+Lendo um grande conjunto de dados
+
+```{r}
+initial <- read.table( "database.txt", nrows=100 )
+classes <- sapply( initial, class )
+tabAll  <- read.table( "database.txt", colClasses = classes )
+```
+
+### Função dput
+
+```{r}
+y <- data.frame(a = 1, b = "a")
+y
+dput(y)
+dput(y, file = "y.R")
+new.y <- dget("y.R")
+new.y
+```
+
+### Função dump e source
+
+Múltiplos objetos podem ser analisados usando a função *dump* e recuperar usando a função *source*
+
+
+```{r}
+x <- "foo"
+y <- data.frame(a=1,b="a")
+dump(c("x", "y"), file = "data.R")
+rm(x,y)
+source("data.R")
+y
+x
+```
+
+### Ler dados apartir de um socket
+
+Dados são lidos através de uma conexão.
+
+```{r}
+
+#con <- file("foo.txt", "r")
+#data <- read.csv(con)
+#close(con)
+
+#gzfile()
+#bzfile()
+con <- url("http://www.jhsph.edu", "r")
+x <- readLines(con)
+head(x)
+```
+
+### Função write.table
+
+## Calcular a memória ideal para um objeto em R.
+
+```{r}
+rows <- 1500000
+cols <- 120
+
+bytes <- rows * cols * 8 #bytes
+
+gigabyte <- (bytes / 2**20) / 1024
+
+gigabyte
+```
+
+
+## Pacote readr
+
+O *readr* é ideal para ler rapidamente arquivos enormes.
+
+
+## Removando valores *Na*
+
+```{r}
+x <- c(1, 2, NA, 4, NA, 5)
+y <- c("a", "b", NA, "d", NA, "f")
+good <- complete.cases(x, y)
+good
+x[good]
+y[good]
+```
+
+## Quiz 1
+
+```{r}
+x <- 4
+class(x)
+
+x <- c(1,3,5)
+y <- c(3,2,10)
+rbind(x,y)
+
+```
+
+```{r}
+x <- list(2, "a", "b", TRUE)
+x[[2]]
+```
+
+```{r}
+x <- 1:4
+y <- 2:3
+x
+y
+x + y
+
+```
+
+```{r}
+x <- c(17, 14, 4, 5, 13, 12, 10)
+
+x[x == 4] > 10
+x
+```
+
+
+```{r}
+quiz <- read.csv('hw1_data.csv')
+nrow(quiz)
+quiz[c(1,2),]
+quiz[c(nrow(quiz)-1,nrow(quiz)),]
+datasub18<-subset(quiz,quiz$Ozone>31 & quiz$Temp>90,select=Solar.R)
+apply(datasub18,2,mean) # Solar media
+datasub19<-subset(quiz,quiz$Month==6,select=Temp)
+apply(datasub19,2,mean) # media de temp no mes 6
+datasub20<-subset(quiz,!is.na(Ozone)&quiz$Month==5,select=Ozone)
+apply(datasub20,2,max) # media de ozonio no mes 5
+```
+
+
+## Function
+
+```{r}
+above <- function(x, y=10 ) { x[x > y] }
+above(1:50, 28 )
+```
+
+```{r}
+columnmean <- function(y, removeNA = TRUE) {
+  nc <- ncol(y)
+  means <- numeric(nc)
+  for(i in 1:nc){
+    means[i] <- mean(y[,1], na.rm = removeNA) 
+  }
+  means
+}
+columnmean(airquality)
+columnmean(airquality, FALSE)
+```
+
+## Generating Random Numbers
+
+Funções 
+
+```{r}
+dnorm(x, mean = 0, sd = 1, log = FALSE)
+pnorm(q, mean = 0, sd = 1, lower.tail =  TRUE, log.p = FALSE)
+qnorm(p, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
+rnorm(n, mean = 0, sd = 1)
+```
+
+Definir uma semente para números aleatórios, permitindo que a análise seja reproduzida
+
+```{r} 
+
+set.seed(1)
+rnorm(5) #1
+rnorm(5) #2
+set.seed(1)
+rnorm(5) # igual ao #1
+
+```
+
+A distribuição de Poisson (é uma distribuição de probabilidade de variável aleatória discreta que expressa a probabilidade de uma série de eventos ocorrer num certo período de tempo se estes eventos ocorrem independentemente de quando ocorreu o último evento.)
+
+```{r} 
+rpois(10, 1)
+rpois(10, 2)
+rpois(10, 20)
+
+## Cumulative distribution
+
+ppois(2, 2) ##Pr(x <= 2)
+ppois(4, 2) ##Pr(x <= 4)
+ppois(6, 2) ##Pr(x <= 6)
+
+```
+
+## Generation Random Numbers From a Linear Model
+
+```{r} 
+set.seed(20)
+x <- rnorm(100)
+e <- rnorm(100, 0, 2)
+y <- 0.5 + 2 * x + e
+summary(y)
+plot(x, y)
+##### Binario
+set.seed(10)
+x <- rbinom(100, 1, 0.5)
+e <- rnorm(100, 0, 2)
+y <- 0.5 + 2 * x + e
+summary(y)
+plot(x, y)
+##### Poisson
+set.seed(1)
+x <- rnorm(100)
+log.mu <- 0.5 + 0.3 * x
+y <- rpois(100, exp(log.mu))
+summary(y)
+plot(x, y)
+```
+
+
+## Simulation - Random Sampling
+
+```{r} 
+set.seed(1)
+sample(1:10, 4)
+sample(1:10, 4)
+sample(letters, 5)
+sample(1:10)
+sample(1:10, replace = TRUE)
+```
+
+## Looking at Data
+
+> Whenever you're working with a new dataset, the first thing you should do is look at it! What is the format of the data? What are the dimensions? What are the variable names? How are the variables stored? Are there missing data? Are there any flaws in the data?
+
+```{r}
+class(plants)
+```
+
+```{r}
+dim(plants)
+```
+
+```{r}
+nrow(plants)
+```
+
+```{r}
+ncol(plants)
+```
+
+```{r}
+object.size(plants)
+```
+
+```{r} 
+names(plants)
+```
+
+```{r}
+head(plants)
+```
+
+```{r}
+head(plants, 10)
+```
+
+```{r}
+tail(plants, 15)
+```
+
+```{r}
+summary(plants)
+```
+
+```{r}
+table(plants$Active_Growth_Period)
+```
+
+```{r}
+str(plants)
+```
+
+## Simulation
+
+Simulate 100 flips of an unfair two-sided coin. 
+
+```{r}
+sample(c(0,1), 100, replace = TRUE, prob = c(0.3, 0.7))
+```
+
+A binomial random variable represents the number of 'successes' (heads)
+
+```{r}
+rbinom(1, size = 100, prob = 0.7)
+```
+
+Use rnorm(...) to generate 10 random numbers from a standard normal distribution.
+
+```{r}
+rnorm(10)
+```
+
+with a mean of 100 and a standard deviation of 25.
+
+```{r}
+rnorm(10, 100, sd = 25)
+```
+
+Generate 5 random values from a Poisson distribution with mean 10.
+
+```{r}
+rpois(5, 10)
+```
+
+Use replicate(...) to perform this operation 100 times.
+
+```{r}
+my_pois <- replicate(100, rpois(5, 10))
+```
+
+## Graphs
+
+Before plotting, it is always a good idea to get a sense of the data. Key R commands for doing so include, dim(), names(), head(), tail() and summary().
+
+```{r}
+plot(cars)
+```
+
+show speed on the x-axis and dist on the y-axis from the cars data frame
+
+```{r}
+plot(x = cars$speed, y = cars$dist)
+```
+
+The x-axis label
+
+```{r}
+plot(x = cars$speed, y = cars$dist, xlab = 'Speed')
+```
+
+The y-axis label
+
+```{r}
+plot(x = cars$speed, y = cars$dist, xlab = 'Speed', ylab = 'Stopping Distance')
+```
+
+Main title
+
+```{r}
+plot(x = cars$speed, y = cars$dist, xlab = 'Speed', ylab = 'Stopping Distance', main = 'My Plot')
+```
+
+Subtitle
+
+```{r}
+plot(cars, sub = 'My Plot Subtitle')
+```
+
+Points are colered red
+
+```{r}
+plot(cars, col = 2)
+```
+
+Limiting the x-axis to 10 through 15
+
+```{r}
+plot(cars, xlim = c(10, 15))
+```
+
+Plot cars using triangles.
+
+```{r}
+plot(cars, pch = 2)
+```
+
+Load the data
+
+```{r}
+data(mtcars)
+```
+
+box-and-whisker plot
+
+```{r}
+boxplot(formula = mpg ~ cyl, data = mtcars)
+```
+
+Histograma
+
+```{r}
+hist(mtcars$mpg)
+```
+> generally an expression with a tilde ("~") which indicates the relationship between the input variables.
+
+
+
+## Including Plot
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
