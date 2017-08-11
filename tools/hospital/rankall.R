@@ -39,7 +39,7 @@ rankall <- function(outcome, num = "best") {
   ## Rank table
   rank <- data.frame( hospital = FALSE, state = data.states, 
                       row.names = data.states )
-  rank$hospital <- lapply(data.states, function(s){
+  rank$hospital <- sapply(data.states, function(s){
     data.state <- filter(data, data$State == s)
     num <- ifelse(num == 'best', 1, num)
     num <- ifelse(num == 'worst', nrow(data.state) , num)
