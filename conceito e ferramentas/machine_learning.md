@@ -215,9 +215,28 @@ A short (but not complete!) list of noteworthy examples includes:
 
 #### Additional reading
 
-
 - The Wikipedia entry on the [bias-variance](https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff) trade-off can help you understand more about this common machine learning concept.
 - In this [AWS Machine Learning](https://aws.amazon.com/blogs/machine-learning/build-a-model-to-predict-the-impact-of-weather-on-urban-air-quality-using-amazon-sagemaker/) blog post, you can see how to train a machine-learning algorithm to predict the impact of weather on air quality using Amazon SageMaker.
+
+## Step 4: Model Evaluation
+
+### Model Accuracy
+
+Model accuracy is a fairly common evaluation metric. Accuracy is the fraction of predictions a model gets right.
+
+### Terminology
+
+- **Log loss** seeks to calculate how uncertain your model is about the predictions it is generating.
+- **Model Accuracy** is the fraction of predictions a model gets right.
+
+#### Additional reading
+
+> The tools used for model evaluation are often tailored to a specific use case, so it's difficult to generalize rules for choosing them. 
+
+
+1. This [healthcare-based example](https://aws.amazon.com/blogs/machine-learning/create-a-model-for-predicting-orthopedic-pathology-using-amazon-sagemaker/), which automates the prediction of spinal pathology conditions, demonstrates how important it is to avoid false positive and false negative predictions using the tree-based xgboost model.
+2. The popular [open-source library](https://scikit-learn.org/stable/modules/model_evaluation.html) `sklearn` provides information about common metrics and how to use them.
+3. [This entry from the AWS Machine Learning blog](https://aws.amazon.com/blogs/machine-learning/making-accurate-energy-consumption-predictions-with-amazon-forecast/) demonstrates the importance of choosing the correct model evaluation metrics for making accurate energy consumption estimates using Amazon Forecast.
 
 
 ## Novos termos
