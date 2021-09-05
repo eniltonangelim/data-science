@@ -238,6 +238,61 @@ Model accuracy is a fairly common evaluation metric. Accuracy is the fraction of
 2. The popular [open-source library](https://scikit-learn.org/stable/modules/model_evaluation.html) `sklearn` provides information about common metrics and how to use them.
 3. [This entry from the AWS Machine Learning blog](https://aws.amazon.com/blogs/machine-learning/making-accurate-energy-consumption-predictions-with-amazon-forecast/) demonstrates the importance of choosing the correct model evaluation metrics for making accurate energy consumption estimates using Amazon Forecast.
 
+## Exemples
+
+### House Price Prediction
+
+![Machine language models to determine house values](images/house_price.png)
+
+#### Step One: Define the problem
+
+> Can we estimate the price of a house based on lot size or the number of bedrooms?
+
+Regression task
+
+|Labeled data         |Continuous label|
+|:-------------------:|:--------------:|
+|`Supervised Learning`|`Regression`    |
+
+#### Step Two: Building a Dataset
+
+- `Data collection`: Colete vários exemplos de casas vendidas em sua vizinhança no ano passado e contrate um corretor imobiliário para avaliar as casas cujo preço de venda não é conhecido.
+- `Data exploration`: Confirme que todos os seus dados são numéricos porque a maioria dos modelos de aprendizado de máquina operam em sequências de números. Se houver dados textuais, você precisará transformá-los em números.
+- `Data cleaning`: Procure coisas como informações ausentes ou discrepantes. Várias técnicas podem ser usadas para lidar com outliers, mas você também pode simplesmente removê-los de seu conjunto de dados.
+- `Data visualization`: Você pode representar graficamente os valores domésticos em relação a cada uma das variáveis de entrada para procurar tendências em seus dados
+
+#### Step Three: Model Training
+
+> Antes de realmente treinar seu modelo, você precisa dividir seus dados. A prática padrão é colocar 80% do seu conjunto de dados em um conjunto de dados de treinamento e 20% em um conjunto de dados de teste.
+
+- Linear model selection
+- [The Python scikit-learn library](https://scikit-learn.org/stable/)
+
+#### Step Four: Evaluation
+
+> Many machine learning engineers manually count how many predictions were off by a threshold (for example, $50,000 in this house pricing problem) to help determine and verify the model's accuracy.
+
+- Root mean square (RMS)
+- Plot
+
+#### Step five: Inference
+
+Como você pode ver na imagem a seguir, isso significa ver como ele prevê com novos dados não vistos durante o treinamento do modelo.
+
+![](images/house_price_inference.png)
+
+#### Terminology
+
+- **Continuous**: Floating-point values with an infinite range of possible values. The opposite of categorical or discrete values, which take on a limited number of possible values.
+- [Hyperplane](https://en.wikipedia.org/wiki/Plane_geometry_(disambiguation)): A mathematical term for a surface that contains more than two planes.
+- [Plane](https://en.wikipedia.org/wiki/Plane_(geometry): A mathematical term for a flat surface (like a piece of paper) on which two points can be joined by a straight line.
+- **Regression**: A common task in supervised machine learning.
+
+#### Additional reading
+
+- The [Machine Learning Mastery](https://machinelearningmastery.com/) blog is a fantastic resource for learning more about machine learning. The following example blog posts dive deeper into training regression-based machine learning models.
+- [How to Develop Ridge Regression Models in Python](https://machinelearningmastery.com/ridge-regression-with-python/) offers another approach to solving the problem in the example from this lesson.
+- Regression is a popular machine learning task, and you can use [several different model evaluation metrics with it](https://machinelearningmastery.com/regression-metrics-for-machine-learning/).
 
 ## Novos termos
 
