@@ -1,0 +1,98 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Introdução ao pacote dplyr (https://dplyr.tidyverse.org/)
+
+```{r}
+install.packages("tidyverse")
+library("tidyverse")
+```
+
+## Visualização de Dados
+
+### Mostra a base de dados completa em uma nova aba
+
+```{r}
+View(cars)
+```
+
+
+### Exibe o cabeçalho da base de dados, limitando à cinco amostras.
+
+```{r}
+head(cars, n = 5)
+```
+
+### Exibe a estrutura de dados
+
+```{r}
+print("1. str(cars)")
+str(cars)
+
+print("2. glimpse(cars)")
+glimpse(cars)
+```
+### Dimensões do objeto
+
+```{r}
+dim(cars)
+```
+
+### Obter ou dedinir nomes para um objeto
+
+```{r}
+print ("1. names(cars)")
+names(cars)
+
+print ('2. names(cars) <- c("speed2x", "dist2x")')
+names(cars) <- c("speed2x", "dist2x")
+names(cars)
+names(cars) <- c("speed", "dist")
+```
+
+### Extrair ou substituir partes de um objeto
+
+```{r}
+cars$speed
+```
+
+## Alterar o nome de uma coluna usando a função dplyr::rename
+
+```{r}
+cars_new <- rename(cars, speed3x = speed, dist3x = dist)
+cars_new
+```
+
+## Concatenação de entrada e saída entre funções
+
+```{r}
+cars_new %>% rename(sp = speed3x, ds = dist3x)
+```
+
+## Criar, modificar e deletar colunas de um conjunto de dados com a função dplyr::mutate
+
+```{r}
+cars_mutate <- mutate(cars_new, speed4x = speed3x * 4)
+cars_mutate
+```
+
+## Substituir valores númericos baseado na sua posição ou no seu nome usando a função dplyr::recode
+
+```{r}
+
+mutate(cars_mutate, speed4x = recode(speed4x, `16`=111, `40`=222))
+
+```
+
+## Incluir ou Excluir variáveis do conjunto de dados usando a função dplyr::transmute
+
+```{r}
+transmute(cars_mutate, speed3x, dist3x)
+```
+
+```{r}
+cars_mutate %>% transmute(speed3x, dist3x) %>% mutate(deslocamento = cut(speed3x, c(0, median(speed3x), Inf), c("menores", "maiores")))
+```
+

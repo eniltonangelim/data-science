@@ -150,7 +150,7 @@ Um tipo especial de vetor que pode conter elementos de diferentes classes de obj
 
 ```{r}
 x <- list(1, "a", TRUE, 1 + 4i)
-x <- vector('list', length = 5)
+x <- vector(mode='list', length = 5)
 x
 ```
 
@@ -336,7 +336,7 @@ gigabyte
 
 ## Pacote readr
 
-O *readr* é ideal para ler rapidamente arquivos enormes.
+O *readr* é ideal para ler arquivos grandes.
 
 
 ## Removando valores *Na*
