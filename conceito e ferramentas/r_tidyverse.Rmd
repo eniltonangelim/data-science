@@ -58,27 +58,29 @@ names(cars) <- c("speed", "dist")
 cars$speed
 ```
 
-## Alterar o nome de uma coluna usando a função dplyr::rename
+## Transformação de dados
+
+### Alterar o nome de uma coluna usando a função dplyr::rename
 
 ```{r}
 cars_new <- rename(cars, speed3x = speed, dist3x = dist)
 cars_new
 ```
 
-## Concatenação de entrada e saída entre funções
+### Concatenação de entrada e saída entre funções
 
 ```{r}
 cars_new %>% rename(sp = speed3x, ds = dist3x)
 ```
 
-## Criar, modificar e deletar colunas de um conjunto de dados com a função dplyr::mutate
+### Criar, modificar e deletar colunas de um conjunto de dados com a função dplyr::mutate
 
 ```{r}
 cars_mutate <- mutate(cars_new, speed4x = speed3x * 4)
 cars_mutate
 ```
 
-## Substituir valores númericos baseado na sua posição ou no seu nome usando a função dplyr::recode
+### Substituir valores númericos baseado na sua posição ou no seu nome usando a função dplyr::recode
 
 ```{r}
 
@@ -86,13 +88,75 @@ mutate(cars_mutate, speed4x = recode(speed4x, `16`=111, `40`=222))
 
 ```
 
-## Incluir ou Excluir variáveis do conjunto de dados usando a função dplyr::transmute
+### Incluir ou Excluir variáveis do conjunto de dados usando a função dplyr::transmute
 
 ```{r}
 transmute(cars_mutate, speed3x, dist3x)
 ```
 
 ```{r}
-cars_mutate %>% transmute(speed3x, dist3x) %>% mutate(deslocamento = cut(speed3x, c(0, median(speed3x), Inf), c("menores", "maiores")))
+cars_transmute <- cars_mutate %>% transmute(speed3x, dist3x) %>% mutate(deslocamento = cut(speed3x, c(0, median(speed3x), Inf), c("menores", "maiores")))
+```
+
+### Subsconjunto de dados
+
+1. Seleção do subconjunto
+
+```{r}
+cars_transmute[,c("speed3x", "dist3x")]
+cars_transmute[,1:2]
+```
+
+2. Extração do subconjunto
+
+```{r}
+cars_transmute[3:4, 1:2]
+```
+
+3. Função dplyr::select
+
+```{r}
+
+select(cars_transmute, speed3x, dist3x)
+select(cars_transmute, everything(), -dist3x)
+select(cars_transmute, dist3x:deslocamento)
+select(cars_transmute, ends_with("3x")
+```
+
+4. Reposicionar as amostras com a função dplyr::select
+
+```{r}
+cars_transmute %>% select(deslocamento, everything())
+```
+
+5. Reposicionar as amostras com a função dplyr::relocate
+
+```{r}
+cars_transmute %>% relocate(speed3x, .after = dist3x)
+```
+6. Extrair uma coluna do conjunto de dados
+
+```{r}
+cars_transmute %>% pull(var = 3)
+```
+
+## Estatística
+
+### Mediana da amostra speed3x
+
+```{r}
+median(cars_mutate$speed3x)
+```
+
+### Resumir o conjunto de dados usando a função dplyr::summarise
+
+```{r}
+cars_transmute %>% summarise(obs = n(), 
+                             media = mean(dist3x),
+                             mediana = median(dist3x),
+                             desv_pad = sd(dist3x),
+                             minimo = min(dist3x),
+                             máximo = max(dist3x),
+                             quartil_3 = quantile(dist3x, type=5, 0.75))
 ```
 
